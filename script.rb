@@ -1,10 +1,16 @@
+require 'pry-byebug'
 class LinkedList
   def initialize
-    @head = Node.new('head', nil)
+    @head = Node.new('head')
   end
 
   # adds a new node containing value to end of list
   def append(value)
+    node = @head
+    while node.next_node != nil
+      node = node.next_node
+    end
+    node.next_node = Node.new(value)
   end
 
   # adds a new node containing value to start of list
@@ -17,6 +23,7 @@ class LinkedList
 
   # returns first node in the list
   def head
+    return @head.next_node
   end
 
   # returns last node in the list
@@ -42,6 +49,14 @@ class LinkedList
   # represent LinkedList objects as strings, so you can print them out and preview in console
   # format is ( value ) -> ( value ) -> nil
   def to_s
+    node = @head
+    string = ""
+    while node.next_node != nil
+      string = string + " ( #{node.data} ) ->"
+      node = node.next_node
+    end
+    string = string + " ( #{node.data} ) -> nil"
+    puts string
   end
 
   # inserts a new node with value at index
@@ -54,8 +69,13 @@ class LinkedList
 end
 
 class Node
+  attr_accessor :data, :next_node
   def initialize(data=nil, next_node=nil)
     @data = data
     @next_node = next_node
   end
 end
+
+l_list = LinkedList.new
+l_list.append('first entry')
+l_list.to_s
