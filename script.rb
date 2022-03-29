@@ -67,6 +67,13 @@ class LinkedList
 
   # removes the last element from the list
   def pop
+    node = @head
+    next_node = node.next_node
+    while next_node.next_node != nil
+      node = node.next_node
+      next_node = node.next_node
+    end
+    node.next_node = nil
   end
 
   # returns true if the passed in value is in the list, otherwise returns false
@@ -155,3 +162,6 @@ p l_list.size
 p l_list.tail
 
 p l_list.at(1)
+
+l_list.pop
+l_list.to_s
