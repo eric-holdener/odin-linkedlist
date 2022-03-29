@@ -149,7 +149,21 @@ class LinkedList
   end
 
   # removes node at given index
+  # index starts counting at first element, not at head
   def remove_at(index)
+    idx = 0
+    node = @head.next_node
+    next_node = node.next_node
+    while next_node != nil
+      if idx === index - 1
+        node.next_node = next_node.next_node
+        return
+      else
+        node = next_node
+        next_node = node.next_node
+        idx += 1
+      end
+    end
   end
 end
 
@@ -183,6 +197,8 @@ p l_list.size
 p l_list.tail
 
 p l_list.at(1)
+
+l_list.remove_at(1)
 
 l_list.pop
 l_list.to_s
