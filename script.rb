@@ -126,7 +126,26 @@ class LinkedList
   end
 
   # inserts a new node with value at index
+  # index starts counting at first element, not at head
   def insert_at(value, index)
+    idx = 0
+    node = @head.next_node
+    next_node = node.next_node
+    while next_node != nil
+      if idx === index - 1
+        node.next_node = Node.new(value, next_node)
+        return
+      else
+        node = next_node
+        next_node = node.next_node
+        idx += 1
+      end
+    end
+    if idx == index
+      node.next_node = Node.new(value, next_node)
+    else
+      puts 'That index is out of range'
+    end
   end
 
   # removes node at given index
@@ -148,6 +167,8 @@ l_list.append('second entry')
 l_list.append('third entry')
 
 l_list.prepends('new first entry')
+
+l_list.insert_at('new second entry', 1)
 
 l_list.to_s
 
