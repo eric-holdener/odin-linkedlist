@@ -14,7 +14,9 @@ class LinkedList
   end
 
   # adds a new node containing value to start of list
-  def prepend(value)
+  def prepends(value)
+    next_node = @head.next_node
+    @head.next_node = Node.new(value, next_node)
   end
 
   # returns total number of nodes in the list
@@ -48,11 +50,30 @@ class LinkedList
         node = node.next_node
       end
     end
-    false
+    if node.data == value
+      return true
+    else
+      false
+    end
   end
 
   # returns the index of the node containing value, or nil if not found
   def find(value)
+    index = 0
+    node = @head
+    while node.next_node != nil
+      if node.data == value
+        return index
+      else
+        index += 1
+        node = node.next_node
+      end
+    end
+    if node.data == value
+      return index
+    else
+      return nil
+    end
   end
 
   # represent LinkedList objects as strings, so you can print them out and preview in console
@@ -89,5 +110,13 @@ l_list = LinkedList.new
 l_list.append('first entry')
 l_list.append('second entry')
 l_list.append('third entry')
+
+l_list.prepends('new first entry')
+
 l_list.to_s
+
+p l_list.find('third entry')
+p l_list.find('abcd')
+
+p l_list.contains?('second entry')
 p l_list.contains?('abcd')
