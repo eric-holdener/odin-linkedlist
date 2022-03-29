@@ -38,10 +38,31 @@ class LinkedList
 
   # returns last node in the list
   def tail
+    node = @head
+    while node.next_node != nil
+      node = node.next_node
+    end
+    node
   end
 
   # returns node at the given index
+  # skips head / accessor node in indexing
   def at(index)
+    idx = 0
+    node = @head.next_node
+    while node.next_node != nil
+      if idx == index
+        return node.data
+      else
+        node = node.next_node
+        idx += 1
+      end
+    end
+    if idx == index
+      return node.data
+    else
+      return nil
+    end
   end
 
   # removes the last element from the list
@@ -130,3 +151,7 @@ p l_list.contains?('second entry')
 p l_list.contains?('abcd')
 
 p l_list.size
+
+p l_list.tail
+
+p l_list.at(1)
