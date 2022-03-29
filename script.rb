@@ -40,6 +40,15 @@ class LinkedList
 
   # returns true if the passed in value is in the list, otherwise returns false
   def contains?(value)
+    node = @head
+    while node.next_node != nil
+      if node.data == value
+        return true
+      else
+        node = node.next_node
+      end
+    end
+    false
   end
 
   # returns the index of the node containing value, or nil if not found
@@ -78,4 +87,7 @@ end
 
 l_list = LinkedList.new
 l_list.append('first entry')
+l_list.append('second entry')
+l_list.append('third entry')
 l_list.to_s
+p l_list.contains?('abcd')
