@@ -20,7 +20,15 @@ class LinkedList
   end
 
   # returns total number of nodes in the list
+  # currently doesnt include head in the size, just nodes with data
   def size
+    size = 0
+    node = @head
+    while node.next_node != nil
+      size += 1
+      node = node.next_node
+    end
+    size
   end
 
   # returns first node in the list
@@ -120,3 +128,5 @@ p l_list.find('abcd')
 
 p l_list.contains?('second entry')
 p l_list.contains?('abcd')
+
+p l_list.size
